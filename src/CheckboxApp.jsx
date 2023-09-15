@@ -17,7 +17,7 @@ export const data = [
     style: "light",
     icon: faHome,
     classic: true,
-    sharp: true,
+    sharp: false,
     brands: true,
     free: false,
   },
@@ -50,7 +50,7 @@ export const data = [
   },
   {
     name: "fImage",
-    style: "regular",
+    style: "solid",
     icon: faImage,
     classic: true,
     sharp: true,
