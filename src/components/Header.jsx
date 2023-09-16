@@ -1,35 +1,53 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFontAwesomeFlag } from "@fortawesome/free-regular-svg-icons";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import {
+  faFontAwesomeFlag,
+  faMagnifyingGlass,
+} from "@fortawesome/free-solid-svg-icons";
+import { faFontAwesome } from "@fortawesome/free-solid-svg-icons";
 
-<FontAwesomeIcon
-  icon="fa-solid fa-font-awesome"
-  style={{ color: "#1860dc" }}
-/>;
 function Header() {
   return (
-    <div className=" w-full py-4">
-      <div className="px-[32px] mx-[38.0966px] bg-white  flex justify-start items-center">
-        <div className="">
-          <FontAwesomeIcon
-            icon={faFontAwesomeFlag}
-            style={{ color: "#1860dc" }}
+    <div className="w-full py-4 bg-white">
+      <div className="px-[32px] mx-[99.5px] bg-white flex justify-between items-center">
+        <div className="flex items-center">
+          <div className="flex items-center py-2 px-4">
+            <FontAwesomeIcon
+              icon={faFontAwesomeFlag}
+              style={{ color: "#1860dc" }}
+              className="w-6 h-6"
+            />
+          </div>
+          <div className="text-[#555555] ">
+            <a className="py-[10px] p-4 font-[16px] mr-4" href="">
+              Start
+            </a>
+            <a className="py-[10px] p-4 font-[16px] mr-4" href="">
+              <FontAwesomeIcon icon={faMagnifyingGlass} />
+            </a>{" "}
+            <a className="py-[10px] p-4 font-[16px] mr-4" href="">
+              Icon
+            </a>
+            <a className="py-[10px] p-4 font-[16px] mr-4" href="">
+              Docs
+            </a>
+            <a className="py-[10px] p-4 font-[16px] mr-4" href="">
+              Plan
+            </a>
+            <a className="py-[10px] p-4 font-[16px] mr-4" href="">
+              Support
+            </a>
+            <a className="py-[10px] p-4 font-[16px] mr-4" href="">
+              Podcast
+            </a>
+          </div>
+        </div>
+        <div>
+          <img
+            src="right-to-bracket-solid.svg"
+            alt="right-to-bracket-solid.svg"
+            className="w-[24px] h-[24px]"
           />
-        </div>
-        <div>
-          <a href="">Start</a>
-          <a href="">
-            <FontAwesomeIcon icon={faMagnifyingGlass} />
-          </a>{" "}
-          <a href="">Icon</a>
-          <a href="">Docs</a>
-          <a href="">Plan</a>
-          <a href="">Support</a>
-          <a href="">Podcast</a>
-        </div>
-        <div>
-          
         </div>
       </div>
     </div>

@@ -64,9 +64,13 @@ function Main() {
     const newFilteredItems = data.filter((item) => {
       const selectedStyles = Array.from(watch("style") || []);
       const selectedFeatured = Array.from(watch("featured") || []);
+      const selectedCategories = Array.from(watch("categories") || []);
+
       return (
         (!selectedStyles.length || selectedStyles.includes(item.style)) &&
-        (!selectedFeatured.length || selectedFeatured.includes(item.name)) &&
+        (!selectedFeatured.length || selectedFeatured.includes(item.feature)) &&
+        (!selectedCategories.length ||
+          selectedCategories.includes(item.categories)) &&
         (!free || item.free) &&
         (!classic || item.classic) &&
         (!sharp || item.sharp) &&
@@ -74,12 +78,21 @@ function Main() {
       );
     });
     setFilteredItems(newFilteredItems);
-  }, [watch("style"), watch("featured"), free, classic, sharp, data, brands]);
+  }, [
+    watch("style"),
+    watch("featured"),
+    watch("categories"),
+    free,
+    classic,
+    sharp,
+    data,
+    brands,
+  ]);
 
   return (
     <>
-      {/* Header Buttons */}
-      <div className="px-8 flex space-x-4 bg-white">
+     <div > {/* Header Buttons */}
+      <section className="px-8 flex space-x-4 bg-white">
         <button
           onClick={() => setClassic((value) => !value)}
           className={clsx("p-2 rounded", classic && "bg-blue-700")}
@@ -96,7 +109,7 @@ function Main() {
           onClick={() => setBrands((value) => !value)}
           className={clsx("p-2 rounded", brands && "bg-blue-700")}
         >
-          Brands
+          <div>Brands</div>
         </button>
         <button
           onClick={() => setFree((value) => !value)}
@@ -110,14 +123,14 @@ function Main() {
           </div>
         </button>
         <div></div>
-      </div>
+      </section>
 
       {/* Main Content */}
-      <section className="mt-8 bg-[#F0F1F3] h-screen">
+      <div className="mt-8 mb-20">
         <form className="mx-[99.5px] px-[16px] ">
           <div className="flex justify-start w-full">
             {/* Left Section */}
-            <div className="bg-gray-100 flex flex-col w-[280px] h-full px-4">
+            <div className="bg-gray-100 flex flex-col w-[280px] h-full px-4 ">
               <div className="text-left py-4 font-bold text-sm text-[#616D8A]">
                 STYLE
               </div>
@@ -151,53 +164,104 @@ function Main() {
             {/* Right Section */}
             <div className="px-4">
               {/* Filters */}
-              <div>
-                <div className="flex space-x-2 items-center">
-                  <div>
-                    <span>{filteredItems.length} Icons</span>
-                  </div>
-                  <div>
-                    {Array.from(watch("style") || []).map((item, i) => (
-                      <div
-                        key={i}
-                        className="border p-2 flex items-center space-x-2 rounded-lg"
-                      >
-                        <div>{item}</div>
+              <div className="">
+                <div className="flex space-x-2 items-center justify-between">
+                  <div className="flex justify-start items-center gap-4">
+                    <div className="text-2xl">
+                      <span>{filteredItems.length} Icons</span>
+                    </div>
+                    <div className="flex gap-2 items-center justify-start ">
+                      {Array.from(watch("style") || []).map((item, i) => (
+                        <div
+                          key={i}
+                          className="border px-3 py-2  flex items-center space-x-2 rounded-full bg-white font-bold hover:text-[#146EBE]  text-gray-800"
+                          style={{ fontSize: "12px" }}
+                        >
+                          <div>{item.toUpperCase()}</div>
+                          <button
+                            className=""
+                            onClick={() => {
+                              setValue(
+                                "style",
+                                Array.from(watch("style") || []).filter(
+                                  (v) => v !== item
+                                )
+                              );
+                            }}
+                          >
+                            X
+                          </button>
+                        </div>
+                      ))}
+                      {Array.from(watch("featured") || []).map((item, i) => (
+                        <div
+                          key={i}
+                          className="border px-3 py-2  flex items-center space-x-2 rounded-full bg-white font-bold hover:text-[#146EBE]  text-gray-800"
+                          style={{ fontSize: "12px" }}
+                        >
+                          <div>{item.toUpperCase()}</div>
+                          <button
+                            onClick={() => {
+                              setValue(
+                                "featured",
+                                Array.from(watch("featured") || []).filter(
+                                  (v) => v !== item
+                                )
+                              );
+                            }}
+                          >
+                            X
+                          </button>
+                        </div>
+                      ))}
+                      {Array.from(watch("categories") || []).map((item, i) => (
+                        <div
+                          key={i}
+                          className="border px-3 py-2  flex items-center space-x-2 rounded-full bg-white font-bold hover:text-[#146EBE]  text-gray-800"
+                          style={{ fontSize: "12px" }}
+                        >
+                          <div>{item.toUpperCase()}</div>
+                          <button
+                            onClick={() => {
+                              setValue(
+                                "categories",
+                                Array.from(watch("categories") || []).filter(
+                                  (v) => v !== item
+                                )
+                              );
+                            }}
+                          >
+                            X
+                          </button>
+                        </div>
+                      ))}
+                      {/* Other filter buttons go here */}
+                      {(free ||
+                        classic ||
+                        brands ||
+                        sharp ||
+                        Array.from(watch("style") || []).length > 0 ||
+                        Array.from(watch("featured") || []).length > 0 ||
+                        Array.from(watch("categories") || []).length > 0) && (
                         <button
                           onClick={() => {
-                            setValue(
-                              "style",
-                              Array.from(watch("style") || []).filter(
-                                (v) => v !== item
-                              )
-                            );
+                            setValue("style", []);
+                            setValue("featured", []);
+                            setValue("categories", []); // Reset categories
+                            setFree(false);
+                            setClassic(false);
+                            setBrands(false);
+                            setSharp(false);
                           }}
+                          className="border px-3 py-2  flex items-center space-x-2 rounded-full bg-white font-bold hover:text-[#146EBE] hover:border-[#146EBE] text-gray-800"
+                          style={{ fontSize: "12px" }}
                         >
-                          X
+                          RESET
                         </button>
-                      </div>
-                    ))}
-                    {/* Other filter buttons go here */}
-                    {(free ||
-                      classic ||
-                      brands ||
-                      sharp ||
-                      Array.from(watch("style") || []).length > 0 ||
-                      Array.from(watch("featured") || []).length > 0) && (
-                      <button
-                        onClick={() => {
-                          setValue("style", []);
-                          setValue("featured", []);
-                          setFree(false);
-                          setClassic(false);
-                          setBrands(false);
-                          setSharp(false);
-                        }}
-                      >
-                        RESET
-                      </button>
-                    )}
+                      )}
+                    </div>
                   </div>
+
                   <div>Page 1 of 20 </div>
                 </div>
               </div>
@@ -227,7 +291,8 @@ function Main() {
             </div>
           </div>
         </form>
-      </section>
+      </div>
+      </div>
     </>
   );
 }

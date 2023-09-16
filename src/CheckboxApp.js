@@ -173,6 +173,8 @@ export const data = [
     sharp: true,
     brands: false,
     free: true,
+    categories :"time",
+    feature:"staff-favorites"
   },
   // Continue to add more items with other styles as needed
 ];
