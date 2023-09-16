@@ -1,9 +1,10 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useForm } from "react-hook-form";
-import { data } from "../CheckboxApp";
 import React, { useState, useEffect } from "react";
-import clsx from "clsx";
+import { useForm } from "react-hook-form";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBolt } from "@fortawesome/free-solid-svg-icons";
+import clsx from "clsx";
+import { data } from "../CheckboxApp";
+import { styleOptions, featuredOptions, categoriesOptions } from "../Category";
 
 function CheckboxGroup({ options, name, register, watch }) {
   const selectedOptions = watch(name) || [];
@@ -14,7 +15,7 @@ function CheckboxGroup({ options, name, register, watch }) {
         <label
           key={option.value}
           className={clsx(
-            "group flex items-center rounded-xl w-[248px]  py-[7px] px-[10.5px] font-light text-gray-700",
+            "group flex items-center rounded-xl w-[248px] py-[7px] px-[10.5px] font-light text-[#616D8A]",
             selectedOptions.includes(option.value) && "bg-blue-600 text-white"
           )}
         >
@@ -37,7 +38,7 @@ function CheckboxGroup({ options, name, register, watch }) {
             <img
               src={option.src}
               alt={option.src}
-              className="w-[14px] h-[14px] rounded-full bg-gray-400"
+              className="w-[14px] h-[14px] rounded-full"
             />
           </span>
           <span className="flex justify-between w-full">
@@ -50,18 +51,6 @@ function CheckboxGroup({ options, name, register, watch }) {
   );
 }
 
-const styleOptions = [
-  { value: "solid", label: "Solid", count: 3, src: "/circle-regular.svg" },
-  { value: "regular", label: "Regular", count: 8 },
-  { value: "light", label: "Light", count: 10 },
-  { value: "thin", label: "Thin", count: 11 },
-];
-
-const featuredOptions = [
-  { value: "sponsored", label: "Sponsored", count: 3 },
-  { value: "popular", label: "Popular", count: 3 },
-];
-
 function Main() {
   const { register, watch, setValue } = useForm();
 
@@ -70,6 +59,7 @@ function Main() {
   const [classic, setClassic] = useState(undefined);
   const [sharp, setSharp] = useState(undefined);
   const [brands, setBrands] = useState(undefined);
+
   useEffect(() => {
     const newFilteredItems = data.filter((item) => {
       const selectedStyles = Array.from(watch("style") || []);
@@ -86,25 +76,25 @@ function Main() {
     setFilteredItems(newFilteredItems);
   }, [watch("style"), watch("featured"), free, classic, sharp, data, brands]);
 
-  console.log(watch("style"));
   return (
     <>
-      <div className=" px-8  flex space-x-4 bg-white">
+      {/* Header Buttons */}
+      <div className="px-8 flex space-x-4 bg-white">
         <button
           onClick={() => setClassic((value) => !value)}
-          className={clsx(" p-2 rounded", classic && "bg-blue-700")}
+          className={clsx("p-2 rounded", classic && "bg-blue-700")}
         >
           Classic
         </button>
         <button
           onClick={() => setSharp((value) => !value)}
-          className={clsx(" p-2 rounded", sharp && "bg-blue-700")}
+          className={clsx("p-2 rounded", sharp && "bg-blue-700")}
         >
           Sharp
         </button>
         <button
           onClick={() => setBrands((value) => !value)}
-          className={clsx(" p-2 rounded", brands && "bg-blue-700")}
+          className={clsx("p-2 rounded", brands && "bg-blue-700")}
         >
           Brands
         </button>
@@ -112,7 +102,7 @@ function Main() {
           onClick={() => setFree((value) => !value)}
           className={clsx("p-2 rounded", free && "bg-blue-700")}
         >
-          <div className="">
+          <div>
             <span>
               <FontAwesomeIcon icon={faBolt} />
             </span>
@@ -121,13 +111,15 @@ function Main() {
         </button>
         <div></div>
       </div>
-      <section className="mt-8  bg-[#F0F1F3] h-screen">
+
+      {/* Main Content */}
+      <section className="mt-8 bg-[#F0F1F3] h-screen">
         <form className="mx-[99.5px] px-[16px] ">
           <div className="flex justify-start w-full">
             {/* Left Section */}
             <div className="bg-gray-100 flex flex-col w-[280px] h-full px-4">
-              <div className="text-left py-4 uppercase font-bold text-sm text-gray-700 ">
-                Style
+              <div className="text-left py-4 font-bold text-sm text-[#616D8A]">
+                STYLE
               </div>
               <CheckboxGroup
                 options={styleOptions}
@@ -135,8 +127,8 @@ function Main() {
                 register={register}
                 watch={watch}
               />
-              <div className="text-left py-4 uppercase font-bold text-sm text-gray-700 ">
-                Featured
+              <div className="text-left py-4 font-bold text-sm text-[#616D8A]">
+                FEATURED{" "}
               </div>
               <CheckboxGroup
                 options={featuredOptions}
@@ -144,108 +136,74 @@ function Main() {
                 register={register}
                 watch={watch}
               />
+
+              <div className="text-left py-4 font-bold text-sm text-[#616D8A]">
+                CATEGORIES{" "}
+              </div>
+              <CheckboxGroup
+                options={categoriesOptions}
+                name="categories"
+                register={register}
+                watch={watch}
+              />
             </div>
 
             {/* Right Section */}
-            <div className=" px-4">
+            <div className="px-4">
+              {/* Filters */}
               <div>
-                <div className="flex space-x-2 p-2">
-                  <span>{filteredItems.length} Icons</span>
-                  {Array.from(watch("style") || []).map((item, i) => (
-                    <div
-                      key={i}
-                      className="border p-2 flex items-center space-x-2 rounded-lg"
-                    >
-                      <div>{item}</div>
+                <div className="flex space-x-2 items-center">
+                  <div>
+                    <span>{filteredItems.length} Icons</span>
+                  </div>
+                  <div>
+                    {Array.from(watch("style") || []).map((item, i) => (
+                      <div
+                        key={i}
+                        className="border p-2 flex items-center space-x-2 rounded-lg"
+                      >
+                        <div>{item}</div>
+                        <button
+                          onClick={() => {
+                            setValue(
+                              "style",
+                              Array.from(watch("style") || []).filter(
+                                (v) => v !== item
+                              )
+                            );
+                          }}
+                        >
+                          X
+                        </button>
+                      </div>
+                    ))}
+                    {/* Other filter buttons go here */}
+                    {(free ||
+                      classic ||
+                      brands ||
+                      sharp ||
+                      Array.from(watch("style") || []).length > 0 ||
+                      Array.from(watch("featured") || []).length > 0) && (
                       <button
                         onClick={() => {
-                          setValue(
-                            "style",
-                            Array.from(watch("style") || []).filter(
-                              (v) => v !== item
-                            )
-                          );
+                          setValue("style", []);
+                          setValue("featured", []);
+                          setFree(false);
+                          setClassic(false);
+                          setBrands(false);
+                          setSharp(false);
                         }}
                       >
-                        X
+                        RESET
                       </button>
-                    </div>
-                  ))}
-                  {Array.from(watch("featured") || []).map((item, i) => (
-                    <div
-                      key={i}
-                      className="border p-2 flex items-center space-x-2 rounded-lg"
-                    >
-                      <div>{item}</div>
-                      <button
-                        onClick={() => {
-                          setValue(
-                            "featured",
-                            Array.from(watch("featured") || []).filter(
-                              (v) => v !== item
-                            )
-                          );
-                        }}
-                      >
-                        X
-                      </button>
-                    </div>
-                  ))}
-                  {free && (
-                    <div className="border p-2 flex items-center space-x-2 rounded-lg">
-                      <div>FREE</div>
-                      <button onClick={() => setFree((value) => !value)}>
-                        X
-                      </button>
-                    </div>
-                  )}
-                  {brands && (
-                    <div className="border p-2 flex items-center space-x-2 rounded-lg">
-                      <div>BRANDS</div>
-                      <button onClick={() => setFree((value) => !value)}>
-                        X
-                      </button>
-                    </div>
-                  )}
-                  {classic && (
-                    <div className="border p-2 flex items-center space-x-2 rounded-lg">
-                      <div>CLASSIC</div>
-                      <button onClick={() => setFree((value) => !value)}>
-                        X
-                      </button>
-                    </div>
-                  )}
-                  {sharp && (
-                    <div className="border p-2 flex items-center space-x-2 rounded-lg">
-                      <div>SHARP</div>
-                      <button onClick={() => setFree((value) => !value)}>
-                        X
-                      </button>
-                    </div>
-                  )}
-
-                  {(free ||
-                    classic ||
-                    brands ||
-                    sharp ||
-                    Array.from(watch("style") || []).length > 0 ||
-                    Array.from(watch("featured") || []).length > 0) && (
-                    <button
-                      onClick={() => {
-                        setValue("style", []);
-                        setValue("featured", []);
-                        setFree(false);
-                        setClassic(false);
-                        setBrands(false);
-                        setSharp(false);
-                      }}
-                    >
-                      RESET
-                    </button>
-                  )}
+                    )}
+                  </div>
+                  <div>Page 1 of 20 </div>
                 </div>
               </div>
-              <div className="grid grid-cols-4 gap-6 justify-between items-center w-[840px] mb-12 mt-5 ">
+
+              {/* Icon Grid */}
+              <div className="grid grid-cols-4 gap-6 justify-between items-center w-[840px] mb-12 mt-5">
                 {filteredItems.map((item) => (
                   <button
                     key={item.name}
