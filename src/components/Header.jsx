@@ -29,25 +29,25 @@ function Header() {
             />
           </div>
           <div className="text-[#555555] ">
-            <a className="py-[10px] p-4 font-[16px] mr-4" href="">
+            <a className="py-[10px] p-4 font-[16px] mr-4 hover:text-[#77B1E2]" href="">
               Start
             </a>
-            <a className="py-[10px] p-4 font-[16px] mr-4" href="">
+            <a className="py-[10px] p-4 font-[16px] mr-4 hover:text-[#77B1E2]" href="">
               <FontAwesomeIcon icon={faMagnifyingGlass} />
             </a>{" "}
-            <a className="py-[10px] p-4 font-[16px] mr-4" href="">
+            <a className="py-[10px] p-4 font-[16px] mr-4 hover:text-[#77B1E2]" href="">
               Icon
             </a>
-            <a className="py-[10px] p-4 font-[16px] mr-4" href="">
+            <a className="py-[10px] p-4 font-[16px] mr-4 hover:text-[#77B1E2]" href="">
               Docs
             </a>
-            <a className="py-[10px] p-4 font-[16px] mr-4" href="">
+            <a className="py-[10px] p-4 font-[16px] mr-4 hover:text-[#77B1E2]" href="">
               Plan
             </a>
-            <a className="py-[10px] p-4 font-[16px] mr-4" href="">
+            <a className="py-[10px] p-4 font-[16px] mr-4 hover:text-[#77B1E2]" href="">
               Support
             </a>
-            <a className="py-[10px] p-4 font-[16px] mr-4" href="">
+            <a className="py-[10px] p-4 font-[16px] mr-4 hover:text-[#77B1E2]" href="">
               Podcast
             </a>
           </div>
@@ -65,8 +65,8 @@ function Header() {
             />
           ) : (
             <img
-              src="right-to-bracket-solid.svg"
-              alt="right-to-bracket-solid.svg"
+              src="/right-to-bracket-solid.svg"
+              alt="/right-to-bracket-solid.svg"
               className="w-[24px] h-[24px] text-white"
             />
           )}
