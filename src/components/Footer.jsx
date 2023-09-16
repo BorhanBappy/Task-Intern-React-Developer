@@ -10,7 +10,7 @@ const Footer = () => {
   return (
     <footer className=" py-10 bg-[#183153] text-white">
       <div className=" mx-[99.5px] px-8">
-        <div className="flex items-center justify-start ">
+        <div className="flex items-start justify-start ">
           <div className="px-4 w-[467px]">
             <a href="/">
               <svg
@@ -96,10 +96,9 @@ const Footer = () => {
                 Blog Awesome
               </a>
             </div>
-          </div>
-          {/* Help Links */}
-          <div className="mt-8 md:flex justify-between">
-            <div className="md:w-1/2">
+
+            {/* Help Links */}
+            <div className="md:w-1/2 mb-8 md:mb-0">
               <h3 className="text-4 font-semibold text-muted mb-2 text-[#616D8A]">
                 Help
               </h3>
@@ -128,7 +127,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="flex space-x-4 ml-4" style={{ fontSize: "14px" }}>
+        <div className="flex space-x-4 ml-4 mt-4" style={{ fontSize: "14px" }}>
           <a
             href="/license"
             className="display-inline-block no-underline margin-right-md hover:text-[#65C0FC]"
